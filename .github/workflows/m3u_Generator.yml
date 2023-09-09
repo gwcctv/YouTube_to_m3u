@@ -6,7 +6,7 @@ name: M3U generator
 on:
   schedule:
     - cron: '0 0/3 * * *'
-
+ 
   pull_request:
     branches:
       - main
