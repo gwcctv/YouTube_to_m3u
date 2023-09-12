@@ -30,8 +30,10 @@ def grab(url):
             break
         else:
             tuner += 5
-    print(f"{link[start : end]}")
+    return link[start : end]
 
+banner = r'''
+print(banner)
 #s = requests.Session()
 with open('../youtube_channel_info.txt') as f:
     groups = []  # 用于存储每组数据的列表
@@ -50,8 +52,13 @@ with open('../youtube_channel_info.txt') as f:
                 groups.append(group)  # 将当前组添加到groups列表中
                 group = []  # 清空当前组列表
         else:
-            grab(line)
+            link = grab(line)
+            group.append(link)  # 将当前元素添加到当前组列表中
             
+            if len(group) == 2:  # 判断当前组是否已满
+                groups.append(group)  # 将当前组添加到groups列表中
+                group = []  # 清空当前组列表
+                
     if len(group) > 0:
         groups.append(group)
 
