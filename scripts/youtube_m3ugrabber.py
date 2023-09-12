@@ -1,17 +1,3 @@
-#! /usr/bin/python3
-
-banner = r'''
-#########################################################################
-#      ____            _           _   __  __                           #
-#     |  _ \ _ __ ___ (_) ___  ___| |_|  \/  | ___   ___  ___  ___      #
-#     | |_) | '__/ _ \| |/ _ \/ __| __| |\/| |/ _ \ / _ \/ __|/ _ \     #
-#     |  __/| | | (_) | |  __/ (__| |_| |  | | (_) | (_) \__ \  __/     #
-#     |_|   |_|  \___// |\___|\___|\__|_|  |_|\___/ \___/|___/\___|     #
-#                   |__/                                                #
-#                                  >> https://github.com/benmoose39     #
-#########################################################################
-'''
-
 import requests
 import os
 import sys
@@ -46,10 +32,11 @@ def grab(url):
             tuner += 5
     print(f"{link[start : end]}")
 
-print('#EXTM3U x-tvg-url="https://github.com/botallen/epg/releases/download/latest/epg.xml"')
-print(banner)
 #s = requests.Session()
 with open('../youtube_channel_info.txt') as f:
+    groups = []  # 用于存储每组数据的列表
+    group = []  # 用于存储当前组数据的列表
+
     for line in f:
         line = line.strip()
         if not line or line.startswith('~~'):
@@ -57,13 +44,20 @@ with open('../youtube_channel_info.txt') as f:
         if not line.startswith('https:'):
             line = line.split('|')
             ch_name = line[0].strip()
-            grp_title = line[1].strip().title()
-            tvg_logo = line[2].strip()
-            tvg_id = line[3].strip()
-            print(f'{ch_name}') 
-        else:
-          grab(line)
+            group.append(ch_name)  # 将当前元素添加到当前组列表中
             
+            if len(group) == 1:  # 判断当前组是否已满
+                groups.append(group)  # 将当前组添加到groups列表中
+                group = []  # 清空当前组列表
+        else:
+            grab(line)
+            
+    if len(group) > 0:
+        groups.append(group)
+
+    for group in groups:
+        print(' '.join(str(item) for item in group))
+        
 if 'temp.txt' in os.listdir():
     os.system('rm temp.txt')
     os.system('rm watch*')
