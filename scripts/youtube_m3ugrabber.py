@@ -9,12 +9,12 @@ if 'win' in sys.platform:
 def grab(url):
     response = requests.get(url, timeout=15).text
     if '.m3u8' not in response:
-        #response = requests.get(url).text
+        # response = requests.get(url).text
         if '.m3u8' not in response:
             if windows:
                 print('https://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_na.m3u')
                 return
-            #os.system(f'wget {url} -O temp.txt')
+            # os.system(f'wget {url} -O temp.txt')
             os.system(f'curl "{url}" > temp.txt')
             response = ''.join(open('temp.txt').readlines())
             if '.m3u8' not in response:
@@ -32,9 +32,6 @@ def grab(url):
             tuner += 5
     return link[start : end]
 
-banner = r'''
-print(banner)
-#s = requests.Session()
 with open('../youtube_channel_info.txt') as f:
     groups = []  # 用于存储每组数据的列表
     group = []  # 用于存储当前组数据的列表
@@ -44,22 +41,18 @@ with open('../youtube_channel_info.txt') as f:
         if not line or line.startswith('~~'):
             continue
         if not line.startswith('https:'):
+            if group:
+                groups.append(group)  # 将当前组添加到groups列表中
+                group = []  # 清空当前组列表
             line = line.split('|')
             ch_name = line[0].strip()
-            group.append(ch_name)  # 将当前元素添加到当前组列表中
-            
-            if len(group) == 1:  # 判断当前组是否已满
-                groups.append(group)  # 将当前组添加到groups列表中
-                group = []  # 清空当前组列表
+            group.append(ch_name)  # 将标题添加到当前组列表中
         else:
             link = grab(line)
-            group.append(link)  # 将当前元素添加到当前组列表中
+            if link:
+                group.append(link)  # 将链接添加到当前组列表中
             
-            if len(group) == 2:  # 判断当前组是否已满
-                groups.append(group)  # 将当前组添加到groups列表中
-                group = []  # 清空当前组列表
-                
-    if len(group) > 0:
+    if group:
         groups.append(group)
 
     for group in groups:
