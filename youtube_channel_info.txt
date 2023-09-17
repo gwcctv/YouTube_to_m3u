@@ -1,7 +1,8 @@
 ~~ DO NOT EDIT THE FIRST 2 LINES
 ~~ FORMAT: <channel name> | <group name> | <logo> | <tvg-id>
 
-
+douyin,|||
+https://v.douyin.com/ie9bsV9r
 ctitv,|||
 https://www.youtube.com/watch?v=oIgbl7t0S_w)EOL
 ttvnews,|||
