@@ -2,7 +2,7 @@
 ~~ FORMAT: <channel name> | <group name> | <logo> | <tvg-id>
 
 douyin,|||
-https://v.douyin.com/ie9bsV9r
+https://v.douyin.com/ieQ2aVyd
 ctitv,|||
 https://www.youtube.com/watch?v=oIgbl7t0S_w)EOL
 ttvnews,|||
