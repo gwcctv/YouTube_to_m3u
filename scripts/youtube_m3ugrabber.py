@@ -12,12 +12,12 @@ def grab(url):
         # response = requests.get(url).text
         if '.m3u8' not in response:
             if windows:
-                return 'https://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_na.m3u'
+                return 'https://raw.githubusercontent.com/gwcctv/YouTube_to_m3u/main/assets/404.mp4'
             # os.system(f'wget {url} -O temp.txt')
             os.system(f'curl "{url}" > temp.txt')
             response = ''.join(open('temp.txt').readlines())
             if '.m3u8' not in response:
-                return 'https://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_na.m3u'
+                return 'https://raw.githubusercontent.com/gwcctv/YouTube_to_m3u/main/assets/404.mp4'
     end = response.find('.m3u8') + 5
     tuner = 100
     while True:
@@ -54,7 +54,7 @@ with open('../youtube_channel_info.txt') as f:
 
     for group in groups:
         if len(group) == 1:  # 如果当前组只有标题而没有链接
-            group.append('https://raw.githubusercontent.com/benmoose39/YouTube_to_m3u/main/assets/moose_na.m3u')
+            group.append('https://raw.githubusercontent.com/gwcctv/YouTube_to_m3u/main/assets/404.mp4')
         print(' '.join(str(item) for item in group))
         
 if 'temp.txt' in os.listdir():
